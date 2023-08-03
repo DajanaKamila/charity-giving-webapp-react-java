@@ -6,7 +6,7 @@ const UnloggedHeaderMolecule = (props) => {
   const { brand } = props;
   return (
 
-<nav className="navbar navbar-expand-lg bg-body-tertiary">
+<nav className="navbar navbar-expand-lg background-navbar">
   <div className="container-fluid">
     <Link className="navbar-brand fs-3" to="/">{brand}</Link>
     <TogglerAtom />
