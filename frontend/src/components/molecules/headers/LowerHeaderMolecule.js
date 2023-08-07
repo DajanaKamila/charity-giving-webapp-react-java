@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import TogglerAtom from "../atoms/TogglerAtom";
+import TogglerAtom from "../../atoms/TogglerAtom";
 
 const LowerHeaderMolecule = () => {
 
@@ -13,19 +13,19 @@ const LowerHeaderMolecule = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav fs-6">
           <li className="nav-item btn-nav">
-              <Link className="nav-link" to="/home/main">Donate</Link>
+              <Link className="nav-link" to="/home/donate">Donate</Link>
             </li>
             <li className="nav-item btn-nav">
-              <Link className="nav-link" to="/home/main">Create new</Link>
+              <Link className="nav-link" to="/home/create">Create new</Link>
             </li>
             <li className="nav-item btn-nav">
-              <Link className="nav-link" to="/home/main">How it works?</Link>
+              <Link className="nav-link" to="/home/expl">How it works?</Link>
             </li>
             <li className="nav-item btn-nav">
-              <Link className="nav-link" to="/homepage">About us</Link>
+              <Link className="nav-link" to="/home/about">About us</Link>
             </li>
             <li className="nav-item btn-nav">
-              <Link className="nav-link" to="/homepage">Sth</Link>
+              <Link className="nav-link" to="/home/main">Sth</Link>
             </li>
           </ul>
         </div>

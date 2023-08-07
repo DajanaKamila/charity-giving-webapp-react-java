@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import TogglerAtom from "../atoms/TogglerAtom";
+import TogglerAtom from "../../atoms/TogglerAtom";
 
 const UnloggedHeaderMolecule = (props) => {
   const { brand } = props;

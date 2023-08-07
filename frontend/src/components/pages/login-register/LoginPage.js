@@ -1,5 +1,5 @@
-import UnloggedHeaderMolecule from "../../molecules/UnloggedHeaderMolecule";
-import LoginOrganism from "../../organisms/LoginOrganism";
+import UnloggedHeaderMolecule from "../../molecules/headers/UnloggedHeaderMolecule";
+import LoginOrganism from "../../organisms/login-register/LoginOrganism";
 
 const LoginPage = ({handleLogin}) => {
     return (

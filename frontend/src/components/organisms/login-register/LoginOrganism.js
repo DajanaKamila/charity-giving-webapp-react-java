@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import LoginFormMolecule from "../molecules/login-register/LoginFormMolecule";
+import LoginFormMolecule from "../../molecules/login-register/LoginFormMolecule";
 
 const LoginOrganism  = ({handleLogin}) => {
     const [username, setUsername] = useState("");

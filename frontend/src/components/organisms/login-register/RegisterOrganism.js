@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import RegisterFormMolecule from "../molecules/login-register/RegisterFormMolecule"
+import RegisterFormMolecule from "../../molecules/login-register/RegisterFormMolecule"
 
 const RegisterOrganism  = () => {
 

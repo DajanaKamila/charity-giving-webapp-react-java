@@ -1,5 +1,6 @@
 .btn-wide {
   width: 15%;
+  min-width: 180px;
 }
 
 .password-info {
