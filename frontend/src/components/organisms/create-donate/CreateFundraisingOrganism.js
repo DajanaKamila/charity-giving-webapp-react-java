@@ -12,6 +12,7 @@ const CreateFundraisingOrganism = () => {
   const navigate = useNavigate();
 
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  const userId = JSON.parse(localStorage.getItem("userId"));
 
   const onHandleChange = (e) => {
       const { name, value } = e.target;
