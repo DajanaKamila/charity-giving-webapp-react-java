@@ -1,5 +1,5 @@
-import UnloggedHeaderMolecule from "../../molecules/UnloggedHeaderMolecule";
-import RegisterOrganism from "../../organisms/RegisterOrganism";
+import UnloggedHeaderMolecule from "../../molecules/headers/UnloggedHeaderMolecule";
+import RegisterOrganism from "../../organisms/login-register/RegisterOrganism";
 
 const RegisterPage = () => {
     return (

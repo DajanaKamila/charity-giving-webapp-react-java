@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import LoginFormMolecule from "../molecules/login-register/LoginFormMolecule";
+import LoginFormMolecule from "../../molecules/login-register/LoginFormMolecule";
 
 const LoginOrganism  = ({handleLogin}) => {
     const [username, setUsername] = useState("");
@@ -28,7 +28,7 @@ const LoginOrganism  = ({handleLogin}) => {
         
             if (response.status === 200) {
                 handleLogin(response.data, response.data.id);
-                navigate("/homepage");
+                navigate("/home/main");
             }
         } catch (error) {
                 if (error.response && error.response.data) {

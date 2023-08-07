@@ -32,15 +32,15 @@ public class Fundraising {
 
 	@Column
 	private BigDecimal goal;
-	
+
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "founder_id")
 	private User founder;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "fundraising",  cascade = CascadeType.ALL)
+
+	// @JsonIgnore
+	@OneToMany(mappedBy = "fundraising", cascade = CascadeType.ALL)
 	private List<Donation> donations;
-	
+
 	public void addDonation(Donation donation) {
 		donations.add(donation);
 	}
@@ -72,13 +72,13 @@ public class Fundraising {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public User getFounder() {
-	    return founder;
+		return founder;
 	}
 
 	public void setFounder(User founder) {
-	    this.founder = founder;
+		this.founder = founder;
 	}
 
 	public List<Donation> getDonations() {
@@ -88,6 +88,5 @@ public class Fundraising {
 	public void setDonations(List<Donation> donations) {
 		this.donations = donations;
 	}
-	
-	
+
 }

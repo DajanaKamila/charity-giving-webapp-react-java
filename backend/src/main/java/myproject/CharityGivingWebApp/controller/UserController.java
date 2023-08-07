@@ -30,7 +30,7 @@ public class UserController {
 		super();
 		this.userService = userService;
 	}
-	
+
 	@PostMapping("")
 	public ResponseEntity<?> saveUser(@RequestBody User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -42,7 +42,7 @@ public class UserController {
 		}
 		return new ResponseEntity<>(this.userService.saveUser(user), HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("")
 	public ResponseEntity<?> getAllUsers() {
 		Iterable<User> usersDB = this.userService.findAllUsers();
@@ -51,7 +51,7 @@ public class UserController {
 		}
 		return new ResponseEntity<>(usersDB, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findUserById(@PathVariable Long id) {
 		User userDB = this.userService.findUserById(id);
@@ -60,8 +60,7 @@ public class UserController {
 		}
 		return new ResponseEntity<>(userDB, HttpStatus.OK);
 	}
-	
-	
+
 	@PostMapping("/{id}/fundraisings")
 	public ResponseEntity<?> addFundraisingToUser(@PathVariable Long id, @RequestBody Fundraising fundraising) {
 		User user = userService.findUserById(id);
@@ -71,7 +70,7 @@ public class UserController {
 		userService.addFundraisingToUser(user, fundraising);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/{id}/donations")
 	public ResponseEntity<?> addDonationToUser(@PathVariable Long id, @RequestBody Donation donation) {
 		User user = userService.findUserById(id);
@@ -81,7 +80,7 @@ public class UserController {
 		userService.addDonationToUser(user, donation);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/login")
 	public ResponseEntity<?> loginUser(@RequestBody User user) {
 		User foundUser = userService.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
@@ -90,5 +89,5 @@ public class UserController {
 		}
 		return new ResponseEntity<>(foundUser, HttpStatus.OK);
 	}
-	
+
 }

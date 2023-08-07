@@ -1,6 +1,6 @@
 import React from "react";
-import UnloggedHeaderMolecule from "../molecules/UnloggedHeaderMolecule";
-import AboutUsMolecule from "../molecules/AboutUsMolecule";
+import UnloggedHeaderMolecule from "../../molecules/headers/UnloggedHeaderMolecule";
+import AboutUsMolecule from "../../molecules/AboutUsMolecule";
 
 const WelcomePage = () => {
   return (

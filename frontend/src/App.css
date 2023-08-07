@@ -1,5 +1,6 @@
 .btn-wide {
   width: 15%;
+  min-width: 180px;
 }
 
 .password-info {
@@ -7,6 +8,31 @@
   color: #999;
 }
 
-.custom-background-navbar {
-  background-color: rgb(239, 226, 240);
+
+
+.background-navbar {
+  background-color: #DCDCDC;
+}
+
+.background-navbar-lower {
+  background-color: #F8F8FF;
+}
+
+.btn-nav {
+  display: block;
+  width: 100%;
+  min-width: 150px;
+  text-align: center;
+  padding: 2px;
+  border: 1px solid #dddde386;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  text-decoration: none;
+  color: #333;
+  background-color: #F8F8FF;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-nav:hover {
+  background-color: #DCDCDC;
 }

@@ -18,20 +18,23 @@ import jakarta.validation.Valid;
 import myproject.CharityGivingWebApp.exceptions.FundraisingNotFoundException;
 import myproject.CharityGivingWebApp.model.Fundraising;
 import myproject.CharityGivingWebApp.service.FundraisingService;
+import myproject.CharityGivingWebApp.service.UserService;
 
 @RestController
 @RequestMapping("api/v1/fundraisings")
 public class FundraisingController {
 
 	private FundraisingService fundraisingService;
+	private UserService userService;
 
-	public FundraisingController(FundraisingService fundraisingService) {
+	public FundraisingController(FundraisingService fundraisingService, UserService userService) {
 		super();
 		this.fundraisingService = fundraisingService;
+		this.userService = userService;
 	}
-	
+
 	@PostMapping("")
-	public ResponseEntity<?> saveFundraising(@RequestBody Fundraising fundraising, BindingResult bindingResult) {
+	public ResponseEntity<?> saveFundraising(@Valid @RequestBody Fundraising fundraising, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
 			for (FieldError error : bindingResult.getFieldErrors()) {
@@ -39,9 +42,10 @@ public class FundraisingController {
 			}
 			return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(this.fundraisingService.saveFundraising(fundraising), HttpStatus.CREATED);
+		Fundraising savedFundraising = fundraisingService.saveFundraising(fundraising);
+		return new ResponseEntity<>(savedFundraising, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("")
 	public ResponseEntity<?> getAllFundraisings() {
 		Iterable<Fundraising> fundraisingsDB = this.fundraisingService.findAllFundraisings();
@@ -50,7 +54,7 @@ public class FundraisingController {
 		}
 		return new ResponseEntity<>(fundraisingsDB, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findFundraisingById(@PathVariable Long id) {
 		Fundraising fundraisingDB = this.fundraisingService.findFundraisingById(id);
@@ -59,5 +63,5 @@ public class FundraisingController {
 		}
 		return new ResponseEntity<>(fundraisingDB, HttpStatus.OK);
 	}
-	
+
 }
