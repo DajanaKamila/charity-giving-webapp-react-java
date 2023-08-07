@@ -1,6 +1,6 @@
 import React from "react";
 
-const CreateFundraisingFormMolecule = ({onHandleChange, onHandleSubmit, name, goal, description, errors}) => {
+const CreateFundraisingFormMolecule = ({onHandleChange, onHandleSubmit, name, goal, description, errors, agreedToTerms}) => {
     
     return (
         <form className="row g-3 mt-2" onSubmit={onHandleSubmit}>
@@ -23,8 +23,9 @@ const CreateFundraisingFormMolecule = ({onHandleChange, onHandleSubmit, name, go
                 {errors.description && <div className="text-danger">{errors.description}</div>}    
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
-                <label class="form-check-label" for="defaultCheck1">Agree to terms and conditions</label>
+                <input class="form-check-input" type="checkbox" value="" id="agreedToTermCheckbox" name="agreedToTerms" checked={agreedToTerms} onChange={onHandleChange}/>
+                <label class="form-check-label" for="agreedToTermsCheckbox">Agree to terms and conditions</label>
+                {errors.agreedToTerms && <div className="text-danger">{errors.agreedToTerms}</div>}   
             </div>
             <div className="col-12">
                 <button type="submit" className="btn btn-outline-secondary btn-wide mt-4">Create fundraising</button>

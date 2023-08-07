@@ -9,14 +9,16 @@ const CreateFundraisingOrganism = () => {
   const [goal, setGoal] = useState("");
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState({});
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const navigate = useNavigate();
 
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   const onHandleChange = (e) => {
-      const { name, value } = e.target;
-      if (name === "name") setName(value);
+      const { name, value, type, checked } = e.target;
+      if (type === "checkbox") setAgreedToTerms(checked);
+      else if (name === "name") setName(value);
       else if (name === "goal") setGoal(value);
       else if (name === "description") setDescription(value);
   };
@@ -35,6 +37,10 @@ const CreateFundraisingOrganism = () => {
 
       if (description === "") {
         errors.description = "Description is a required field.";
+      }
+
+      if (!agreedToTerms) {
+        errors.agreedToTerms = "You must agree to continue."
       }
       
       if (Object.keys(errors).length > 0) {
@@ -67,7 +73,8 @@ const CreateFundraisingOrganism = () => {
         name={name}
         goal={goal}
         description={description}
-        errors={errors}/>
+        errors={errors}
+        agreedToTerms={agreedToTerms}/>
     );
 }
 
