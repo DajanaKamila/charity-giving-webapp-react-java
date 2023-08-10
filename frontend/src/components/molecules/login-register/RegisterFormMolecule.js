@@ -5,22 +5,22 @@ const RegisterFormMolecule = ({ onHandleSubmit, onHandleChange, firstName, lastN
     <form className="row g-3 mt-2" onSubmit={onHandleSubmit}>
     <h3>Welcome to the Charity World! Sign up if you want to be a part of our team! </h3>
     <div className="col-md-6">
-        <label for="input-first-name" className="form-label">First name</label>
+        <label htmlFor="input-first-name" className="form-label">First name</label>
         <input type="text" className="form-control" id="input-first-name" name="firstName" value={firstName} onChange={onHandleChange}/>
         {errors.firstName && <div className="text-danger">{errors.firstName}</div>}
     </div>
     <div className="col-md-6">
-        <label for="input-last-name" className="form-label">Last name</label>
+        <label htmlFor="input-last-name" className="form-label">Last name</label>
         <input type="text" className="form-control" id="input-last-name" name="lastName" value={lastName} onChange={onHandleChange}/>
         {errors.lastName && <div className="text-danger">{errors.lastName}</div>}
     </div>
     <div className="col-12">
-        <label for="input-username" className="form-label">Username</label>
+        <label htmlFor="input-username" className="form-label">Username</label>
         <input type="text" className="form-control" id="input-username" name="username" value={username} onChange={onHandleChange}/>
         {errors.username && <div className="text-danger">{errors.username}</div>}    
     </div>
     <div className="col-md-6">
-        <label for="inputPassword" className="form-label">Password</label>
+        <label htmlFor="inputPassword" className="form-label">Password</label>
         <input type="password" className="form-control" id="input-password" name="password" value={password} onChange={onHandleChange}/>
         {errors.password && <div className="text-danger">{errors.password}</div>}
         <p className="password-info">
@@ -28,7 +28,7 @@ const RegisterFormMolecule = ({ onHandleSubmit, onHandleChange, firstName, lastN
         </p>
     </div>
     <div className="col-md-6">
-        <label for="inputPassword" className="form-label">Confirm password</label>
+        <label htmlFor="inputPassword" className="form-label">Confirm password</label>
         <input type="password" className="form-control" id="input-confirm-password" name="confirmPassword" value={confirmPassword} onChange={onHandleChange}/>
         {errors.confirmPassword && <div className="text-danger">{errors.confirmPassword}</div>}
     </div>
