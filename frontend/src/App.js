@@ -14,6 +14,7 @@ import PageToDo from "./components/pages/PageToDo";
 import TestPage from "./components/pages/TestPage";
 import CreateFundraisingPage from "./components/pages/create-donate/CreateFundraisingPage";
 import DonatePage from "./components/pages/create-donate/DonatePage";
+import DonateDetailsOrganism from "./components/organisms/create-donate/DonateDetailsOrganism"
 
 function App() {
   const [user, setUser] = useState(null);
@@ -57,14 +58,15 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage handleLogin={handleLogin}/>} />
           <Route path="/home" element={userId && <HomePage  handleLogout={handleLogout}/>} >
-            <Route path="main" element={<TestPage />} /> 
-            <Route path="create" element={<CreateFundraisingPage />} />
-            <Route path="donate" element={<DonatePage />} /> 
+            <Route path="main" element={userId && <TestPage />} /> 
+            <Route path="create" element={userId && <CreateFundraisingPage />} />
+            <Route path="donate" element={userId && <DonatePage />} />
+            <Route path="donate/info/:fundraisingId" element={<DonateDetailsOrganism />} />
           </Route>
           
           <Route path="/*" element={<PageNotFound />} />
-          <Route path="/myaccount" element={<MyAccountPage />} />
-          <Route path="/todo" element={<PageToDo/>} />
+          <Route path="/myaccount" element={userId && <MyAccountPage />} />
+          <Route path="/todo" element={userId && <PageToDo/>} />
         </Routes>
       </div>
     </Router>

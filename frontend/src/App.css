@@ -36,3 +36,21 @@
 .btn-nav:hover {
   background-color: #DCDCDC;
 }
+
+.btn-standard {
+  display: block;
+  width: 15%;
+  min-width: 150px;
+  text-align: center;
+  padding: 2px;
+  border: 1px solid #dddde386;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  color: #333;
+  background-color: #F8F8FF;
+}
+
+.btn-standard:hover {
+  background-color: #DCDCDC;
+}

@@ -8,14 +8,14 @@ const LoginFormMolecule = ({ onHandleSubmit, onHandleChange, errors, username, p
         {errors && <div className="alert alert-danger">{errors}</div>}
         <div className="row mt-3">
             <div className="col-md-4">
-                <label for="input-username" className="form-label">Username</label>
+                <label htmlFor="input-username" className="form-label">Username</label>
                 <input type="text" className="form-control" id="input-username" name="username" value={username} onChange={onHandleChange}/>
                 {/* {errors.username && <div className="text-danger">{errors.username}</div>}     */}
             </div>
         </div>
         <div className="row">
             <div className="col-md-4">
-                <label for="input-password" className="form-label">Password</label>
+                <label htmlFor="input-password" className="form-label">Password</label>
                 <input type="password" className="form-control" id="input-password" name="password" value={password} onChange={onHandleChange}/>
                 {/* {errors.password && <div className="text-danger">{errors.password}</div>} */}
         </div>
