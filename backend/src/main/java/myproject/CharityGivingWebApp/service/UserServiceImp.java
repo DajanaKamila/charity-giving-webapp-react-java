@@ -27,6 +27,14 @@ public class UserServiceImp implements UserService {
 		return this.userRepo.save(user);
 	}
 
+	/**
+	 * Find all User objects available in database. 
+	 * @return - iterable of User objects
+	 */
+	@Override
+	public Iterable<User> findAllUsers() {
+		return this.userRepo.findAll();
+	}
 	
 	/**
 	 * Find User in the database by ID. 
@@ -39,14 +47,14 @@ public class UserServiceImp implements UserService {
 	}
 	
 	/**
-	 * Find all User objects available in database. 
-	 * @return - iterable of User objects
+	 * Find User by username (String) and password (String). 
+	 * @return - found User with given username and password.
 	 */
 	@Override
-	public Iterable<User> findAllUsers() {
-		return this.userRepo.findAll();
+	public User findUserByUsernameAndPassword(String username, String password) {
+		return this.userRepo.findByUsernameAndPassword(username, password);
 	}
-	
+
 	/**
 	 * Add Fundraising to List<Fundraising> of the given User. Set User as a founder in Fundrising.
 	 * @param user - User who creates fundraising
@@ -70,16 +78,6 @@ public class UserServiceImp implements UserService {
 		user.getDonations().add(donation);
 		userRepo.save(user);
 	}
-
-	/**
-	 * Find User by username (String) and password (String). 
-	 * @return - found User with given username and password.
-	 */
-	@Override
-	public User findUserByUsernameAndPassword(String username, String password) {
-		return this.userRepo.findByUsernameAndPassword(username, password);
-	}
-
 
 
 }

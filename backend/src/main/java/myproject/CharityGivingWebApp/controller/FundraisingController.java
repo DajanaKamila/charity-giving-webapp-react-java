@@ -18,19 +18,16 @@ import jakarta.validation.Valid;
 import myproject.CharityGivingWebApp.exceptions.FundraisingNotFoundException;
 import myproject.CharityGivingWebApp.model.Fundraising;
 import myproject.CharityGivingWebApp.service.FundraisingService;
-import myproject.CharityGivingWebApp.service.UserService;
 
 @RestController
 @RequestMapping("api/v1/fundraisings")
 public class FundraisingController {
 
 	private FundraisingService fundraisingService;
-	private UserService userService;
 
-	public FundraisingController(FundraisingService fundraisingService, UserService userService) {
+	public FundraisingController(FundraisingService fundraisingService) {
 		super();
 		this.fundraisingService = fundraisingService;
-		this.userService = userService;
 	}
 
 	@PostMapping("")
