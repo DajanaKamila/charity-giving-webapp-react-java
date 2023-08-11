@@ -8,9 +8,9 @@ const LowerHeaderMolecule = () => {
     <nav className="navbar navbar-expand-lg background-navbar-lower">
       <div className="container-fluid">
         <div className="empty-space fs-3"></div>
-        <TogglerAtom />
+        <TogglerAtom targetId="lowerNavbar"/>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse" id="lowerNavbar">
           <ul className="navbar-nav fs-6">
           <li className="nav-item btn-nav">
               <Link className="nav-link" to="/home/donate">Donate</Link>

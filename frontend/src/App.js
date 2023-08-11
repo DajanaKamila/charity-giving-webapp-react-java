@@ -58,9 +58,9 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage handleLogin={handleLogin}/>} />
           <Route path="/home" element={userId && <HomePage  handleLogout={handleLogout}/>} >
-            <Route path="main" element={userId && <TestPage />} /> 
-            <Route path="create" element={userId && <CreateFundraisingPage />} />
-            <Route path="donate" element={userId && <DonatePage />} />
+            <Route path="main" element={<TestPage />} /> 
+            <Route path="create" element={<CreateFundraisingPage />} />
+            <Route path="donate" element={<DonatePage />} />
             <Route path="donate/info/:fundraisingId" element={<DonateDetailsOrganism />} />
           </Route>
           

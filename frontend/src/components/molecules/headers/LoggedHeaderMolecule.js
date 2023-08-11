@@ -9,9 +9,9 @@ const LoggedHeaderMolecule = ({brand, handleLogout}) => {
 <nav className="navbar navbar-expand-lg background-navbar">
   <div className="container-fluid">
     <Link className="navbar-brand fs-3" to="/home/main">{brand}</Link>
-    <TogglerAtom />
+    <TogglerAtom targetId="loggedNavbar"/>
 
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    <div className="collapse navbar-collapse" id="loggedNavbar">
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0 fs-6">
       <li className="nav-item btn-nav">
           <Link className="nav-link" to="/myaccount">My account</Link>
