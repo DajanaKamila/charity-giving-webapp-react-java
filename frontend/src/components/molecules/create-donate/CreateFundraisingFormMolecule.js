@@ -18,9 +18,9 @@ const CreateFundraisingFormMolecule = ({onHandleChange, onHandleSubmit, name, go
                 {errors.goal && <div className="text-danger">{errors.goal}</div>}
             </div>
             <div className="col-12">
-                <label htmlFor="input-description" className="form-label">Description</label>
-                <input type="text" className="form-control" id="input-description" name="description" value={description} onChange={onHandleChange}/>
-                {errors.description && <div className="text-danger">{errors.description}</div>}    
+                <label htmlFor="description">Description</label>
+                <textarea className="form-control" id="description" rows="3" name="description" value={description} onChange={onHandleChange}/>
+                {errors.description && <div className="text-danger">{errors.description}</div>}  
             </div>
             <div className="form-check">
                 <input className="form-check-input" type="checkbox" value="" id="agreedToTermCheckbox" name="agreedToTerms" checked={agreedToTerms} onChange={onHandleChange}/>

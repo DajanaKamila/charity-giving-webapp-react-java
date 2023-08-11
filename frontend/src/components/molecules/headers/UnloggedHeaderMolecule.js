@@ -11,7 +11,7 @@ const UnloggedHeaderMolecule = (props) => {
     <Link className="navbar-brand fs-3" to="/">{brand}</Link>
     <TogglerAtom />
 
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    <div className="collapse navbar-collapse" id="unloggedNavbar">
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0 fs-6">
         <li className="nav-item">
           <Link className="nav-link" to="/login">Login</Link>
