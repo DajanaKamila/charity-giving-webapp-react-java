@@ -37,9 +37,8 @@ class TestFundraisingService {
 	
 	@Test
 	@DisplayName("Save fundraising")
-	void test_saveFundraising_callSaveMathodFromFundraisingRepo_returnUserToBeSaved() {
+	void test_saveFundraising_callSaveMathodFromFundraisingRepo_returnFundraisingToBeSaved() {
 		mockFundraising = new Fundraising();
-		
 		when(mockFundraisingRepo.save(mockFundraising)).thenReturn(mockFundraising);
 		
 		Fundraising actual = fundraisingService.saveFundraising(mockFundraising);
