@@ -16,23 +16,26 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Donation {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@NotBlank(message = "Amount is a required field.")
 	@Column
 	private BigDecimal amount;
-	
+
 	@Column
 	private String comment;
-	
+
+	@Column
+	private boolean isAnonymous;
+
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "donor_id")
 	private User donor;
-	
+
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "fundraising_id")
@@ -74,5 +77,12 @@ public class Donation {
 		return id;
 	}
 
+	public boolean isIsAnonymous() {
+		return isAnonymous;
+	}
+
+	public void setIsAnonymous(boolean isAnonymous) {
+		this.isAnonymous = isAnonymous;
+	}
 
 }

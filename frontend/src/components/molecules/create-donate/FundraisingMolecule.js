@@ -9,6 +9,8 @@ const FundraisingMolecule = ({ fundraising}) => {
       setIsShowing(!isShowing);
     };
 
+    const descriptionLines = fundraising.description.split('\n');
+
     return (
         <div className="card mb-1">
           <div
@@ -23,7 +25,12 @@ const FundraisingMolecule = ({ fundraising}) => {
               <ul className="list-group">
                 <li className="list-group-item"><b>Goal:</b> {fundraising.goal}</li>
                 <li className="list-group-item">
-                 {fundraising.description}
+                  {descriptionLines.map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))}
                 </li>
                 <li className="nav-item btn-standard">
                     {/* <Link className="nav-link" to="/home/donate/info/${fundraising.id}">See more</Link> */}
@@ -52,8 +59,6 @@ FundraisingMolecule.propTypes = {
     description: PropTypes.string.isRequired,
   }).isRequired,
 };
-
-
 
 export default FundraisingMolecule;
 

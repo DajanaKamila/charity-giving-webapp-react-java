@@ -1,11 +1,12 @@
 import React from "react";
 
 const Name = ({ sth }) => {
-  return (
-    <div>
 
-    </div>
-  );
 };
 
 export default Name;
+
+//how to get a user
+
+// const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+// const userId = JSON.parse(localStorage.getItem("userId"));
