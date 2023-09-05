@@ -74,6 +74,7 @@ public class UserController {
 	@PostMapping("/{id}/donations")
 	public ResponseEntity<?> addDonationToUser(@PathVariable Long id, @RequestBody Donation donation) {
 		User user = userService.findUserById(id);
+		// long fundraisingId = donation.getFundraising().getId();
 		if (user == null) {
 			throw new UserNotFoundException("The user with given ID does not exist");
 		}
