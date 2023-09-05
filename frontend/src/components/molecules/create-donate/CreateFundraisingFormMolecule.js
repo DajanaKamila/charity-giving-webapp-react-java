@@ -19,7 +19,7 @@ const CreateFundraisingFormMolecule = ({onHandleChange, onHandleSubmit, name, go
             </div>
             <div className="col-12">
                 <label htmlFor="description">Description</label>
-                <textarea className="form-control" id="description" rows="3" name="description" value={description} onChange={onHandleChange}/>
+                <textarea className="form-control" id="description" rows="3" name="description" value={description} onChange={onHandleChange} maxLength={2000}/>
                 {errors.description && <div className="text-danger">{errors.description}</div>}  
             </div>
             <div className="form-check">

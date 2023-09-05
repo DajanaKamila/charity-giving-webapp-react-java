@@ -16,8 +16,9 @@ public class DonationServiceImp implements DonationService {
 	}
 
 	/**
-	 * Save Donation object in the database. 
-	 * @param donation - Donation to be saved 
+	 * Save Donation object in the database.
+	 * 
+	 * @param donation - Donation to be saved
 	 * @return - donation that was saved
 	 */
 	@Override
@@ -26,8 +27,9 @@ public class DonationServiceImp implements DonationService {
 	}
 
 	/**
-	 * Find Donation in the database by it's ID. 
-	 * @param id - id of a Donation to be found. 
+	 * Find Donation in the database by it's ID.
+	 * 
+	 * @param id - id of a Donation to be found.
 	 * @return - found Donation or - if Donation does not exist - null
 	 */
 	@Override
@@ -36,7 +38,8 @@ public class DonationServiceImp implements DonationService {
 	}
 
 	/**
-	 * Find all Donation objects available in database. 
+	 * Find all Donation objects available in database.
+	 * 
 	 * @return - iterable of Donation objects
 	 */
 	@Override

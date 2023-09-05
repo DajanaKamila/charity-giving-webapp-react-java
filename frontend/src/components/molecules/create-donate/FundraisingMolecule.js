@@ -9,6 +9,8 @@ const FundraisingMolecule = ({ fundraising}) => {
       setIsShowing(!isShowing);
     };
 
+    const descriptionLines = fundraising.description ? fundraising.description.split('\n') : null;
+
     return (
         <div className="card mb-1">
           <div
@@ -23,10 +25,20 @@ const FundraisingMolecule = ({ fundraising}) => {
               <ul className="list-group">
                 <li className="list-group-item"><b>Goal:</b> {fundraising.goal}</li>
                 <li className="list-group-item">
-                 {fundraising.description}
+
+                  {descriptionLines ? (
+                  descriptionLines.map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+              
+                    ))
+                  ) : (
+                    <p>No description available.</p>
+                  )}
                 </li>
                 <li className="nav-item btn-standard">
-                    {/* <Link className="nav-link" to="/home/donate/info/${fundraising.id}">See more</Link> */}
                     <Link className="nav-link" to={`/home/donate/info/${fundraising.id}`}>See more</Link>
                 </li>
               </ul>
@@ -34,7 +46,6 @@ const FundraisingMolecule = ({ fundraising}) => {
           )}
         </div>
       );
-
 };
 
 FundraisingMolecule.defaultProps = {
@@ -52,8 +63,6 @@ FundraisingMolecule.propTypes = {
     description: PropTypes.string.isRequired,
   }).isRequired,
 };
-
-
 
 export default FundraisingMolecule;
 

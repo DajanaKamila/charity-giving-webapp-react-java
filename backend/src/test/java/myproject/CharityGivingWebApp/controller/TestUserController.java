@@ -36,84 +36,85 @@ import myproject.CharityGivingWebApp.service.UserServiceImp;
 @SpringBootTest
 @AutoConfigureMockMvc
 class TestUserController {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@MockBean
 	private UserServiceImp mockUserServiceImp;
-	
+
 	@MockBean
 	private Fundraising mockFundraising;
-	
+
 	@MockBean
 	private Donation mockDonation;
-	
+
 	@Autowired
 	private ObjectMapper objectMapper;
-	
+
 	private User user, user2, user3;
-	
+
 	@BeforeEach
 	public void setup() {
 		user = new User();
 		user2 = new User();
 		user3 = new User();
-		
+
 		user.setUsername("username");
 		user.setPassword("password");
 		user.setFirstName("John");
 		user.setLastName("Doe");
-		
+
 		user2.setUsername("username2");
-		user2.setPassword("password2");	
+		user2.setPassword("password2");
 	}
-	
+
 	@Test
 	@DisplayName("Save correct user")
 	void test_saveUser_returnSavedUserAndCreatedStatus() throws JsonProcessingException, Exception {
 		given(mockUserServiceImp.saveUser(ArgumentMatchers.any(User.class)))
-			.willAnswer((invocation) -> invocation.getArgument(0));
-	      
+				.willAnswer((invocation) -> invocation.getArgument(0));
+
 		ResultActions response = mockMvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(user)));
-		
+
 		response.andExpect(status().isCreated())
 				.andExpect(jsonPath("$.username", is("username")))
 				.andExpect(jsonPath("$.password", is("password")));
 		verify(mockUserServiceImp, times(1)).saveUser(ArgumentMatchers.any(User.class));
 	}
-	
-//	@Test
-//	@DisplayName("Save invalid user")
-//	void test_saveUser_returnBadRequest_whenUserIsInvalid() throws Exception {        
-//        ResultActions response = mockMvc.perform(post("/api/v1/users")
-//        		.contentType(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsString(user3))
-//                .param("bindingResult", "true"));
-//        
-//        response.andExpect(status().isBadRequest());
-//        
-//        verify(mockUserServiceImp, never()).saveUser(ArgumentMatchers.any(User.class));
-//	}
-	
+
+	// @Test
+	// @DisplayName("Save invalid user")
+	// void test_saveUser_returnBadRequest_whenUserIsInvalid() throws Exception {
+	// ResultActions response = mockMvc.perform(post("/api/v1/users")
+	// .contentType(MediaType.APPLICATION_JSON)
+	// .content(objectMapper.writeValueAsString(user3))
+	// .param("bindingResult", "true"));
+	//
+	// response.andExpect(status().isBadRequest());
+	//
+	// verify(mockUserServiceImp,
+	// never()).saveUser(ArgumentMatchers.any(User.class));
+	// }
+
 	@Test
 	@DisplayName("Find all users")
 	void test_getAllUsers_returnsListOfUsers_IfThereAreUsersInDatabase() throws Exception {
 		Iterable<User> users = List.of(user, user2);
 		when(mockUserServiceImp.findAllUsers()).thenReturn(users);
-		
+
 		ResultActions response = mockMvc.perform(get("/api/v1/users"));
-		
+
 		response.andExpect(status().isOk())
-        		.andExpect(jsonPath("$[0].username").value("username"))
-        		.andExpect(jsonPath("$[0].password").value("password"))
-        		.andExpect(jsonPath("$[1].username").value("username2"))
-        		.andExpect(jsonPath("$[1].password").value("password2"));
-		
+				.andExpect(jsonPath("$[0].username").value("username"))
+				.andExpect(jsonPath("$[0].password").value("password"))
+				.andExpect(jsonPath("$[1].username").value("username2"))
+				.andExpect(jsonPath("$[1].password").value("password2"));
+
 		verify(mockUserServiceImp, times(1)).findAllUsers();
 	}
-	
+
 	@Test
 	@DisplayName("Find all users - no users")
 	void test_getAllUsers_returnsUserNotFoundException_IfThereAreNoUsersInDatabase() throws Exception {
@@ -123,34 +124,34 @@ class TestUserController {
 		response.andExpect(status().isNotFound());
 		verify(mockUserServiceImp, times(1)).findAllUsers();
 	}
-	
+
 	@Test
 	@DisplayName("Find user by ID - exisiting user")
 	void test_fidnUserById_returnsExisitingUser() throws Exception {
 		long id = 1;
 		when(mockUserServiceImp.findUserById(id)).thenReturn(user);
-		
+
 		ResultActions response = mockMvc.perform(get("/api/v1/users/{id}", id));
-		
+
 		response.andExpect(status().isOk())
 				.andExpect(jsonPath("$.username", is("username")))
 				.andExpect(jsonPath("$.password", is("password")));
-		
+
 		verify(mockUserServiceImp, times(1)).findUserById(1L);
 	}
-	
+
 	@Test
 	@DisplayName("Find user by ID - not exisiting user")
 	void test_fidnUserById_returnsUserNotFoundException_whenNoSuchUserInDB() throws Exception {
 		long id = 1;
 		when(mockUserServiceImp.findUserById(id)).thenReturn(null);
-		
+
 		ResultActions response = mockMvc.perform(get("/api/v1/users/{id}", id));
 		response.andExpect(status().isNotFound());
-		
-		 verify(mockUserServiceImp, times(1)).findUserById(id);
+
+		verify(mockUserServiceImp, times(1)).findUserById(id);
 	}
-	
+
 	@Test
 	@DisplayName("Add fundrising to user - existing user")
 	void test_addFundraisingToUser_ReturnsStatusOk_whenUserExists() throws Exception {
@@ -164,7 +165,7 @@ class TestUserController {
 		response.andExpect(status().isOk());
 		verify(mockUserServiceImp, times(1)).addFundraisingToUser(ArgumentMatchers.any(User.class), ArgumentMatchers.any(Fundraising.class));
 	}
-	
+
 	@Test
 	@DisplayName("Add fundrising to user - not existing user")
 	void test_addFundraisingToUser_ReturnUserNotFoundException_whenUserNotExists() throws Exception {
@@ -177,7 +178,7 @@ class TestUserController {
 		response.andExpect(status().isNotFound());
 		verify(mockUserServiceImp, never()).addFundraisingToUser(ArgumentMatchers.any(User.class), ArgumentMatchers.any(Fundraising.class));
 	}
-	
+
 	@Test
 	@DisplayName("Add donation to user - existing user")
 	void test_addDonationToUser_ReturnsStatusOk_whenUserExists() throws Exception {
@@ -191,7 +192,7 @@ class TestUserController {
 		response.andExpect(status().isOk());
 		verify(mockUserServiceImp, times(1)).addDonationToUser(ArgumentMatchers.any(User.class), ArgumentMatchers.any(Donation.class));
 	}
-	
+
 	@Test
 	@DisplayName("Add donation to user - not existing user")
 	void test_addDonationToUser_ReturnUserNotFoundException_whenUserNotExists() throws Exception {
@@ -204,7 +205,7 @@ class TestUserController {
 		response.andExpect(status().isNotFound());
 		verify(mockUserServiceImp, never()).addDonationToUser(ArgumentMatchers.any(User.class), ArgumentMatchers.any(Donation.class));
 	}
-	
+
 	@Test
 	@DisplayName("Log in user - exisiting user")
 	void test_loginUser_withCorrectLoginAndPassword_returnsUser() throws Exception {
@@ -218,7 +219,7 @@ class TestUserController {
 	
 		verify(mockUserServiceImp, times(1)).findUserByUsernameAndPassword("username", "password");
 	}
-	
+
 	@Test
 	@DisplayName("Log in user - not exisiting user")
 	void test_loginUser_withIncorrectLoginAndPassword_returnsUserNotFoundException() throws Exception {
@@ -230,7 +231,5 @@ class TestUserController {
 		response.andExpect(status().isNotFound());
 		verify(mockUserServiceImp, times(1)).findUserByUsernameAndPassword("username", "password");
 	}
-	
-	
 
 }

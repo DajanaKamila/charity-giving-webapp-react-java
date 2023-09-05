@@ -21,14 +21,14 @@ import myproject.CharityGivingWebApp.service.DonationService;
 @RestController
 @RequestMapping("api/v1/donations")
 public class DonationController {
-	
+
 	private DonationService donationService;
 
 	public DonationController(DonationService donationService) {
 		super();
 		this.donationService = donationService;
 	}
-	
+
 	@PostMapping("")
 	public ResponseEntity<?> saveDonation(@RequestBody Donation donation, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -40,7 +40,7 @@ public class DonationController {
 		}
 		return new ResponseEntity<>(this.donationService.saveDonation(donation), HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("")
 	public ResponseEntity<?> getAllDonations() {
 		Iterable<Donation> donationsDB = this.donationService.findAllDonations();
@@ -49,7 +49,12 @@ public class DonationController {
 		}
 		return new ResponseEntity<>(donationsDB, HttpStatus.OK);
 	}
-	
+
+	// @GetMapping("")
+	// public ResponseEntity<?> getDonationsByFundraising() {
+	// Iterable<Donation> donationsDB = this.donationService.
+	// }
+
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findDonationById(@PathVariable Long id) {
 		Donation donationDB = this.donationService.findDonationById(id);
@@ -58,6 +63,5 @@ public class DonationController {
 		}
 		return new ResponseEntity<>(donationDB, HttpStatus.OK);
 	}
-	
 
 }

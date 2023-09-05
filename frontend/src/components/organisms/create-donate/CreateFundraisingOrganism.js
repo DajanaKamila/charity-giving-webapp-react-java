@@ -59,7 +59,7 @@ const CreateFundraisingOrganism = () => {
       axios.post("http://localhost:8080/api/v1/users/" + userId + "/fundraisings", newFundraising)
         .then(() => {
           alert("Your fundraising has been added.")
-          navigate("/home/main");
+          navigate("/home/donate");
         })
         .catch((error) => {
             console.error(error);
