@@ -15,10 +15,11 @@ public class FundraisingServiceImp implements FundraisingService {
 		super();
 		this.fundraisingRepo = fundraisingRepo;
 	}
-	
+
 	/**
-	 * Save Fundraising in database. 
-	 * @return - fundraising to be saved. 
+	 * Save Fundraising in database.
+	 * 
+	 * @return - fundraising to be saved.
 	 */
 	@Override
 	public Fundraising saveFundraising(Fundraising fundraising) {
@@ -26,8 +27,9 @@ public class FundraisingServiceImp implements FundraisingService {
 	}
 
 	/**
-	 * Find Fundraising by given id. 
-	 * @return - Fundraising found by given ID. 
+	 * Find Fundraising by given id.
+	 * 
+	 * @return - Fundraising found by given ID.
 	 */
 	@Override
 	public Fundraising findFundraisingById(Long id) {
@@ -35,24 +37,32 @@ public class FundraisingServiceImp implements FundraisingService {
 	}
 
 	/**
-	 * Find all Fundraising objects in the database. 
-	 * @return - iterable of Fundrising objects found in database. 
+	 * Find all Fundraising objects in the database.
+	 * 
+	 * @return - iterable of Fundrising objects found in database.
 	 */
 	@Override
 	public Iterable<Fundraising> findAllFundraisings() {
 		return this.fundraisingRepo.findAll();
 	}
 
-	/**
-	 * Add Donation to List<Donation> of the given Fundraising. Set Fundraising as a fundraising in Donation.
-	 * @param fundraising - fundraising for which the donation was made
-	 * @param donation - donation to be added to the fundraising
-	 */
+	// /**
+	// * Add Donation to List<Donation> of the given Fundraising. Set Fundraising as
+	// a fundraising in Donation.
+	// * @param fundraising - fundraising for which the donation was made
+	// * @param donation - donation to be added to the fundraising
+	// */
+	// @Override
+	// public void addDonationToFundraising(Fundraising fundraising, Donation
+	// donation) {
+	// donation.setFundraising(fundraising);
+	// fundraising.getDonations().add(donation);
+	// fundraisingRepo.save(fundraising);
+	// }
+
 	@Override
-	public void addDonationToFundraising(Fundraising fundraising, Donation donation) {
-		donation.setFundraising(fundraising);
-		fundraising.getDonations().add(donation);
-		fundraisingRepo.save(fundraising);
+	public Iterable<Donation> findDonationsOfFundraising(Long id) {
+		return this.fundraisingRepo.getDonationsOfFundraising(id);
 	}
 
 }

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import myproject.CharityGivingWebApp.exceptions.DonationNotFoundException;
 import myproject.CharityGivingWebApp.exceptions.FundraisingNotFoundException;
+import myproject.CharityGivingWebApp.model.Donation;
 import myproject.CharityGivingWebApp.model.Fundraising;
 import myproject.CharityGivingWebApp.service.FundraisingService;
 
@@ -50,6 +52,15 @@ public class FundraisingController {
 			throw new FundraisingNotFoundException("There are no saved fundraisings");
 		}
 		return new ResponseEntity<>(fundraisingsDB, HttpStatus.OK);
+	}
+
+	@GetMapping("{id}/donations")
+	public ResponseEntity<?> getDonationsByFundraising(@PathVariable Long id) {
+		Iterable<Donation> donationsDB = this.fundraisingService.findDonationsOfFundraising(id);
+		if (donationsDB == null) {
+			throw new DonationNotFoundException("There are no saved donations for this fundraising");
+		}
+		return new ResponseEntity<>(donationsDB, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

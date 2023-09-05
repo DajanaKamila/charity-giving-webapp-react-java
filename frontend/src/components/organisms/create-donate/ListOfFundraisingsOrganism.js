@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import Fundraising from "../../molecules/create-donate/FundraisingMolecule"
+import FundraisingMolecule from "../../molecules/create-donate/FundraisingMolecule"
 
 const ListOfFundraisingsOrganism = () => {
 
@@ -22,7 +22,7 @@ const ListOfFundraisingsOrganism = () => {
         <p></p>
         <React.Fragment>
             {fundraisings.map((fundraising) => (
-                <Fundraising 
+                <FundraisingMolecule 
                     key={fundraising.id}
                     fundraising={fundraising} />
             ))}

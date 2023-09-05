@@ -28,7 +28,7 @@ const LoginOrganism  = ({handleLogin}) => {
         
             if (response.status === 200) {
                 handleLogin(response.data, response.data.id);
-                navigate("/home/main");
+                navigate("/home/donate");
             }
         } catch (error) {
                 if (error.response && error.response.data) {

@@ -9,7 +9,7 @@ const FundraisingMolecule = ({ fundraising}) => {
       setIsShowing(!isShowing);
     };
 
-    const descriptionLines = fundraising.description.split('\n');
+    const descriptionLines = fundraising.description ? fundraising.description.split('\n') : null;
 
     return (
         <div className="card mb-1">
@@ -25,15 +25,20 @@ const FundraisingMolecule = ({ fundraising}) => {
               <ul className="list-group">
                 <li className="list-group-item"><b>Goal:</b> {fundraising.goal}</li>
                 <li className="list-group-item">
-                  {descriptionLines.map((line, index) => (
+
+                  {descriptionLines ? (
+                  descriptionLines.map((line, index) => (
                       <React.Fragment key={index}>
                         {line}
                         <br />
                       </React.Fragment>
-                    ))}
+              
+                    ))
+                  ) : (
+                    <p>No description available.</p>
+                  )}
                 </li>
                 <li className="nav-item btn-standard">
-                    {/* <Link className="nav-link" to="/home/donate/info/${fundraising.id}">See more</Link> */}
                     <Link className="nav-link" to={`/home/donate/info/${fundraising.id}`}>See more</Link>
                 </li>
               </ul>
@@ -41,7 +46,6 @@ const FundraisingMolecule = ({ fundraising}) => {
           )}
         </div>
       );
-
 };
 
 FundraisingMolecule.defaultProps = {
