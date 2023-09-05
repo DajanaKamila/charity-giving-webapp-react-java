@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import DonateFormMolecule from "../../molecules/create-donate/DonateFormMolecule"
-// import DonateHowToMolecule from "../../molecules/create-donate/DonateHowToMolecule"
+import DonateHowToMolecule from "../../molecules/create-donate/DonateHowToMolecule"
 import axios from "axios";
 
 const DonateMoneyOrganism = ({fundraising}) => {
@@ -55,20 +55,16 @@ const DonateMoneyOrganism = ({fundraising}) => {
   };
 
   return (<div>
-        {/* <DonateHowToMolecule /> */}
-        <h4 style={{ marginTop: "40px", backgroundColor: "#F8F8FF", padding: "10px" }}>Interested in helping? Here you can submit your donation:</h4>
-          <div className="user-data">
-                <p style={{ marginTop: "20px", fontSize: 18, color: "#A9A9A9"   }}>You donate as <b>{loggedInUser.firstName} {loggedInUser.lastName}</b></p>
-          </div>
-          <DonateFormMolecule 
-            onHandleChange={onHandleChange}
-            onHandleSubmit={onHandleSubmit}
-            errors={errors}
-            amount={amount}
-            comment={comment}
-            isAnonymous={isAnonymous}
-            loggedInUser={loggedInUser}
-            />
+        <DonateHowToMolecule />
+        <DonateFormMolecule 
+          onHandleChange={onHandleChange}
+          onHandleSubmit={onHandleSubmit}
+          errors={errors}
+          amount={amount}
+          comment={comment}
+          isAnonymous={isAnonymous}
+          loggedInUser={loggedInUser}
+          />
   </div>);
 
 
