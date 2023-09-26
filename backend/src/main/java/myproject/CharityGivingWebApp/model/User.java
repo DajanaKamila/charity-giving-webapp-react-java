@@ -2,7 +2,6 @@ package myproject.CharityGivingWebApp.model;
 
 import java.util.List;
 
-// import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -39,11 +38,11 @@ public class User {
 	@Column
 	private String lastName;
 
-	// @JsonIgnoreProperties("founder")
+	@JsonIgnoreProperties({ "founder", "donations" })
 	@OneToMany(mappedBy = "founder", cascade = CascadeType.ALL)
 	private List<Fundraising> fundraisings;
 
-	// @JsonIgnoreProperties({ "donations", "fundraisings" })
+	@JsonIgnoreProperties({ "donor", "fundraising", "fundraisings" })
 	@OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
 	private List<Donation> donations;
 

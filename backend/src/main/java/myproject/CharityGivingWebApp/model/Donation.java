@@ -2,8 +2,6 @@ package myproject.CharityGivingWebApp.model;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-// import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -33,14 +31,12 @@ public class Donation {
 	@Column
 	private boolean isAnonymous;
 
-	// @JsonIgnore
-	@JsonIgnoreProperties("donations")
+	@JsonIgnoreProperties({ "donations", "fundraisings" })
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "donor_id")
 	private User donor;
 
-	// @JsonIgnore
-	@JsonIgnoreProperties("donations")
+	@JsonIgnoreProperties({ "donations", "founder" })
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "fundraising_id")
 	private Fundraising fundraising;
