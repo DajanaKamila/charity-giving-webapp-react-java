@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.annotation.Resource;
+import myproject.CharityGivingWebApp.exceptions.FundraisingNotFoundException;
 import myproject.CharityGivingWebApp.exceptions.UserNotFoundException;
 import myproject.CharityGivingWebApp.model.Donation;
 import myproject.CharityGivingWebApp.model.Fundraising;
 import myproject.CharityGivingWebApp.model.User;
+import myproject.CharityGivingWebApp.service.FundraisingService;
 import myproject.CharityGivingWebApp.service.UserService;
 
 @RestController
@@ -25,6 +28,9 @@ import myproject.CharityGivingWebApp.service.UserService;
 public class UserController {
 
 	private UserService userService;
+
+	@Resource
+	private FundraisingService fundraisingService;
 
 	public UserController(UserService userService) {
 		super();
@@ -71,13 +77,22 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping("/{id}/donations")
-	public ResponseEntity<?> addDonationToUser(@PathVariable Long id, @RequestBody Donation donation) {
-		User user = userService.findUserById(id);
-		// long fundraisingId = donation.getFundraising().getId();
+	@PostMapping("/{userId}/{fundraisingId}/donations")
+	public ResponseEntity<?> addDonationToUser(@PathVariable Long userId, @PathVariable Long fundraisingId,
+			@RequestBody Donation donation) {
+		User user = userService.findUserById(userId);
 		if (user == null) {
 			throw new UserNotFoundException("The user with given ID does not exist");
 		}
+
+		Fundraising fundraising = fundraisingService.findFundraisingById(fundraisingId);
+
+		if (fundraising == null) {
+			throw new FundraisingNotFoundException("The fundraising with given ID does not exist");
+		}
+
+		donation.setFundraising(fundraising);
+
 		userService.addDonationToUser(user, donation);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
