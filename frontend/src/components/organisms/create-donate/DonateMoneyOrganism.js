@@ -32,22 +32,16 @@ const DonateMoneyOrganism = ({fundraising}) => {
         setErrors(errors);
         return;
       }
-
-      // const fundraisingToSave = {
-      //   id : fundraising.id
-      // };
   
       const newDonation = {
         amount: amount,
         comment: comment,
         isAnonymous: isAnonymous,
         donor: {loggedInUser},
-        // fundraising: fundraisingToSave
       };
 
       console.log(fundraising);
-  
-      // axios.post("http://localhost:8080/api/v1/users/" + userId + "/donations", newDonation)
+
       axios.post(`http://localhost:8080/api/v1/users/${userId}/${fundraising.id}/donations`, newDonation)
         .then(() => {
           alert("Your donation has been added.")
