@@ -97,13 +97,4 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping("/login")
-	public ResponseEntity<?> loginUser(@RequestBody User user) {
-		User foundUser = userService.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
-		if (foundUser == null) {
-			throw new UserNotFoundException("Invalid username or password");
-		}
-		return new ResponseEntity<>(foundUser, HttpStatus.OK);
-	}
-
 }
