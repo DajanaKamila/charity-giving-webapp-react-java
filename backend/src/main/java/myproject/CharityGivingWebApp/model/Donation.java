@@ -41,6 +41,18 @@ public class Donation {
 	@JoinColumn(name = "fundraising_id")
 	private Fundraising fundraising;
 
+	public Donation() {}
+
+	public Donation(@NotNull(message = "Amount is a required field.") BigDecimal amount, String comment,
+			boolean isAnonymous, User donor, Fundraising fundraising) {
+		super();
+		this.amount = amount;
+		this.comment = comment;
+		this.isAnonymous = isAnonymous;
+		this.donor = donor;
+		this.fundraising = fundraising;
+	}
+
 	public BigDecimal getAmount() {
 		return amount;
 	}

@@ -67,15 +67,15 @@ public class UserController {
 		return new ResponseEntity<>(userDB, HttpStatus.OK);
 	}
 
-	@PostMapping("/{id}/fundraisings")
-	public ResponseEntity<?> addFundraisingToUser(@PathVariable Long id, @RequestBody Fundraising fundraising) {
-		User user = userService.findUserById(id);
-		if (user == null) {
-			throw new UserNotFoundException("The user with given ID does not exist");
-		}
-		userService.addFundraisingToUser(user, fundraising);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+//	@PostMapping("/{id}/fundraisings")
+//	public ResponseEntity<?> addFundraisingToUser(@PathVariable Long id, @RequestBody Fundraising fundraising) {
+//		User user = userService.findUserById(id);
+//		if (user == null) {
+//			throw new UserNotFoundException("The user with given ID does not exist");
+//		}
+//		userService.addFundraisingToUser(user, fundraising);
+//		return new ResponseEntity<>(HttpStatus.OK);
+//	}
 
 	@PostMapping("/{userId}/{fundraisingId}/donations")
 	public ResponseEntity<?> addDonationToUser(@PathVariable Long userId, @PathVariable Long fundraisingId,

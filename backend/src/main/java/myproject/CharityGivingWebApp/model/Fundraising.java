@@ -40,6 +40,17 @@ public class Fundraising {
 	@OneToMany(mappedBy = "fundraising", cascade = CascadeType.ALL)
 	private List<Donation> donations;
 
+	public Fundraising() {}
+	
+	public Fundraising(String name, String description, BigDecimal goal, User founder, List<Donation> donations) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.goal = goal;
+		this.founder = founder;
+		this.donations = donations;
+	}
+
 	public void addDonation(Donation donation) {
 		donations.add(donation);
 	}

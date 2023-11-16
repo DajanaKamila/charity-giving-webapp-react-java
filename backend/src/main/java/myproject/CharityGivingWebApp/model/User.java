@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -19,27 +20,33 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import myproject.CharityGivingWebApp.views.Views;
 
 @Entity
 @Table(name = "Charity_Users")
 public class User {
 
+	@JsonView(Views.UserBasicView.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@JsonView(Views.UserBasicView.class)
 	@NotBlank(message = "Email is a required field.")
 	@Column(unique = true)
 	private String email;
 
+	@JsonView(Views.UserBasicView.class)
 	@NotBlank(message = "Password is a required field.")
 	@Column
 	private String password;
 
+	@JsonView(Views.UserBasicView.class)
 	@NotBlank(message = "First name is a required field.")
 	@Column
 	private String firstName;
 
+	@JsonView(Views.UserBasicView.class)
 	@NotBlank(message = "Last name is a required field.")
 	@Column
 	private String lastName;
@@ -87,8 +94,6 @@ public class User {
 		this.email = email;
 	}
 
-	
-
 	public String getPassword() {
 		return password;
 	}
@@ -119,10 +124,6 @@ public class User {
 	
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	p
-
 	}
 
 	public void setFundraisings(List<Fundraising> fundraisings) {

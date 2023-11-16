@@ -33,7 +33,7 @@ public class AuthService {
     }
 
     public LoginResponse attemptLogin(String email, String password) { 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password);
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
     
     		SecurityContextHolder.getContext().setAuthentication(authentication);
 		var principal = (UserPrincipal) authentication.getPrincipal();
