@@ -2,8 +2,6 @@ package myproject.CharityGivingWebApp.service;
 
 import org.springframework.stereotype.Service;
 
-import myproject.CharityGivingWebApp.model.Donation;
-import myproject.CharityGivingWebApp.model.Fundraising;
 import myproject.CharityGivingWebApp.model.User;
 import myproject.CharityGivingWebApp.repository.UserRepository;
 
@@ -48,6 +46,16 @@ public class UserServiceImp implements UserService {
 	public User findUserById(Long id) {
 		return this.userRepo.findById(id).orElse(null);
 	}
+	
+	/**
+	 * Find a User in the database by email.
+	 * 
+	 * @param email - The email of the User to be found.
+	 * @return - The found User or null if User does not exist.
+	 */
+	public User findUserByEmail(String email) {
+		return this.userRepo.findByEmail(email);
+	}
 
 	// /**
 	// * Add Fundraising to List<Fundraising> of the given User. Set User as a
@@ -64,28 +72,20 @@ public class UserServiceImp implements UserService {
 	// userRepo.save(user);
 	// }
 
-	/**
-	 * Add Donation to List<Donation> of the given User. Set User as a donor in
-	 * Donation.
-	 * 
-	 * @param user     - User who makes donation
-	 * @param donation - donation to be added to the user
-	 */
-	@Override
-	public void addDonationToUser(User user, Donation donation) {
-		donation.setDonor(user);
-		user.getDonations().add(donation);
-		userRepo.save(user);
-	}
+//	/**
+//	 * Add Donation to List<Donation> of the given User. Set User as a donor in
+//	 * Donation.
+//	 * 
+//	 * @param user     - User who makes donation
+//	 * @param donation - donation to be added to the user
+//	 */
+//	@Override
+//	public void addDonationToUser(User user, Donation donation) {
+//		donation.setDonor(user);
+//		user.getDonations().add(donation);
+//		userRepo.save(user);
+//	}
 
-	/**
-	 * Find a User in the database by email.
-	 * 
-	 * @param email - The email of the User to be found.
-	 * @return - The found User or null if User does not exist.
-	 */
-	public User findUserByEmail(String email) {
-		return this.userRepo.findByEmail(email);
-	}
+
 
 }

@@ -2,7 +2,7 @@ package myproject.CharityGivingWebApp.service;
 
 import org.springframework.stereotype.Service;
 
-import myproject.CharityGivingWebApp.model.Donation;
+//import myproject.CharityGivingWebApp.model.Donation;
 import myproject.CharityGivingWebApp.model.Fundraising;
 import myproject.CharityGivingWebApp.repository.FundraisingRepository;
 
@@ -60,9 +60,9 @@ public class FundraisingServiceImp implements FundraisingService {
 	// fundraisingRepo.save(fundraising);
 	// }
 
-	@Override
-	public Iterable<Donation> findDonationsOfFundraising(Long id) {
-		return this.fundraisingRepo.getDonationsOfFundraising(id);
-	}
+//	@Override
+//	public Iterable<Donation> findDonationsOfFundraising(Long id) {
+//		return this.fundraisingRepo.getDonationsOfFundraising(id);
+//	}
 
 }

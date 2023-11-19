@@ -1,10 +1,8 @@
 package myproject.CharityGivingWebApp.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.persistence.CascadeType;
@@ -17,7 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import myproject.CharityGivingWebApp.views.Views;
@@ -28,7 +25,7 @@ public class User {
 
 	@JsonView(Views.UserBasicView.class)
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@JsonView(Views.UserBasicView.class)
@@ -36,7 +33,6 @@ public class User {
 	@Column(unique = true)
 	private String email;
 
-	@JsonView(Views.UserBasicView.class)
 	@NotBlank(message = "Password is a required field.")
 	@Column
 	private String password;
@@ -51,13 +47,13 @@ public class User {
 	@Column
 	private String lastName;
 
-	@JsonIgnoreProperties({ "founder", "donations" })
-	@OneToMany(mappedBy = "founder", cascade = CascadeType.ALL)
-	private List<Fundraising> fundraisings;
-
-	@JsonIgnoreProperties({ "donor", "fundraising", "fundraisings" })
-	@OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
-	private List<Donation> donations;
+//	@JsonIgnoreProperties({ "founder", "donations" })
+//	@OneToMany(mappedBy = "founder", cascade = CascadeType.ALL)
+//	private List<Fundraising> fundraisings;
+//
+//	@JsonIgnoreProperties({ "donor", "fundraising", "fundraisings" })
+//	@OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
+//	private List<Donation> donations;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -66,25 +62,16 @@ public class User {
 	public User() {
 	}
 
-	public User(String email, String password, String firstName, String lastName, List<Fundraising> fundraisings,
-			List<Donation> donations, Set<Role> roles) {
+	public User(String email, String password, String firstName, String lastName, Set<Role> roles) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.fundraisings = fundraisings;
-		this.donations = donations;
+
 		this.roles = roles;
 	}
 
-	public void addFundraising(Fundraising fundraising) {
-		fundraisings.add(fundraising);
-	}
-
-	public void addDonation(Donation donation) {
-		donations.add(donation);
-	}
 
 	public String getEmail() {
 		return email;
@@ -124,18 +111,6 @@ public class User {
 	
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public void setFundraisings(List<Fundraising> fundraisings) {
-		this.fundraisings = fundraisings;
-	}
-
-	public List<Donation> getDonations() {
-		return donations;
-	}
-
-	public void setDonations(List<Donation> donations) {
-		this.donations = donations;
 	}
 
 	public Set<Role> getRoles() {

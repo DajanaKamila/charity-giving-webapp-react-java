@@ -14,22 +14,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import myproject.CharityGivingWebApp.exceptions.DonationNotFoundException;
 import myproject.CharityGivingWebApp.model.Donation;
+import myproject.CharityGivingWebApp.model.Fundraising;
+import myproject.CharityGivingWebApp.model.User;
 import myproject.CharityGivingWebApp.service.DonationService;
+import myproject.CharityGivingWebApp.service.FundraisingService;
+import myproject.CharityGivingWebApp.service.UserService;
+import myproject.CharityGivingWebApp.views.Views;
 
 @RestController
 @RequestMapping("api/v1/donations")
 public class DonationController {
 
 	private DonationService donationService;
+	private UserService userService; 
+	private FundraisingService fundraisingService; 
 
-	public DonationController(DonationService donationService) {
+	public DonationController(DonationService donationService, UserService userService, FundraisingService fundraisingService) {
 		super();
 		this.donationService = donationService;
+		this.userService = userService;
+		this.fundraisingService = fundraisingService;
 	}
 
-	@PostMapping("")
+	@PostMapping("/")
+	@JsonView(Views.DonationView.class)
 	public ResponseEntity<?> saveDonation(@RequestBody Donation donation, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
@@ -38,10 +50,22 @@ public class DonationController {
 			}
 			return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 		}
+		
+		User donor = userService.findUserById(donation.getDonor().getId());
+		Fundraising fundraising = fundraisingService.findFundraisingById(donation.getFundraising().getId());
+		
+		if (donor == null || fundraising == null) {
+			return ResponseEntity.badRequest().body("Error: Incorrect input data!");
+		}
+		
+		donation.setDonor(donor);
+		donation.setFundraising(fundraising);
+		
 		return new ResponseEntity<>(this.donationService.saveDonation(donation), HttpStatus.CREATED);
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
+	@JsonView(Views.DonationView.class)
 	public ResponseEntity<?> getAllDonations() {
 		Iterable<Donation> donationsDB = this.donationService.findAllDonations();
 		if (donationsDB == null) {
@@ -50,12 +74,8 @@ public class DonationController {
 		return new ResponseEntity<>(donationsDB, HttpStatus.OK);
 	}
 
-	// @GetMapping("")
-	// public ResponseEntity<?> getDonationsByFundraising() {
-	// Iterable<Donation> donationsDB = this.donationService.
-	// }
-
 	@GetMapping("/{id}")
+	@JsonView(Views.DonationView.class)
 	public ResponseEntity<?> findDonationById(@PathVariable Long id) {
 		Donation donationDB = this.donationService.findDonationById(id);
 		if (donationDB == null) {

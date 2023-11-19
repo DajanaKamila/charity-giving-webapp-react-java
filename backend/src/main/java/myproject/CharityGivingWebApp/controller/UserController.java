@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.annotation.Resource;
-import myproject.CharityGivingWebApp.exceptions.FundraisingNotFoundException;
 import myproject.CharityGivingWebApp.exceptions.UserNotFoundException;
-import myproject.CharityGivingWebApp.model.Donation;
-import myproject.CharityGivingWebApp.model.Fundraising;
 import myproject.CharityGivingWebApp.model.User;
 import myproject.CharityGivingWebApp.service.FundraisingService;
+import myproject.CharityGivingWebApp.service.RoleService;
 import myproject.CharityGivingWebApp.service.UserService;
+import myproject.CharityGivingWebApp.views.Views;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -31,13 +32,17 @@ public class UserController {
 
 	@Resource
 	private FundraisingService fundraisingService;
+	
+	@Resource 
+	private RoleService roleService;
 
 	public UserController(UserService userService) {
 		super();
 		this.userService = userService;
 	}
 
-	@PostMapping("")
+	@PostMapping("/")
+	@JsonView(Views.UserBasicView.class)
 	public ResponseEntity<?> saveUser(@RequestBody User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
@@ -45,11 +50,13 @@ public class UserController {
 				errors.put(error.getField(), error.getDefaultMessage());
 			}
 			return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-		}
+		} 
+		
 		return new ResponseEntity<>(this.userService.saveUser(user), HttpStatus.CREATED);
 	}
 
-	@GetMapping("")
+	@GetMapping("/")
+	@JsonView(Views.UserBasicView.class)
 	public ResponseEntity<?> getAllUsers() {
 		Iterable<User> usersDB = this.userService.findAllUsers();
 		if (usersDB == null) {
@@ -59,6 +66,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(Views.UserBasicView.class)
 	public ResponseEntity<?> findUserById(@PathVariable Long id) {
 		User userDB = this.userService.findUserById(id);
 		if (userDB == null) {
@@ -77,24 +85,24 @@ public class UserController {
 //		return new ResponseEntity<>(HttpStatus.OK);
 //	}
 
-	@PostMapping("/{userId}/{fundraisingId}/donations")
-	public ResponseEntity<?> addDonationToUser(@PathVariable Long userId, @PathVariable Long fundraisingId,
-			@RequestBody Donation donation) {
-		User user = userService.findUserById(userId);
-		if (user == null) {
-			throw new UserNotFoundException("The user with given ID does not exist");
-		}
-
-		Fundraising fundraising = fundraisingService.findFundraisingById(fundraisingId);
-
-		if (fundraising == null) {
-			throw new FundraisingNotFoundException("The fundraising with given ID does not exist");
-		}
-
-		donation.setFundraising(fundraising);
-
-		userService.addDonationToUser(user, donation);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+//	@PostMapping("/{userId}/{fundraisingId}/donations")
+//	public ResponseEntity<?> addDonationToUser(@PathVariable Long userId, @PathVariable Long fundraisingId,
+//			@RequestBody Donation donation) {
+//		User user = userService.findUserById(userId);
+//		if (user == null) {
+//			throw new UserNotFoundException("The user with given ID does not exist");
+//		}
+//
+//		Fundraising fundraising = fundraisingService.findFundraisingById(fundraisingId);
+//
+//		if (fundraising == null) {
+//			throw new FundraisingNotFoundException("The fundraising with given ID does not exist");
+//		}
+//
+//		donation.setFundraising(fundraising);
+//
+//		userService.addDonationToUser(user, donation);
+//		return new ResponseEntity<>(HttpStatus.OK);
+//	}
 
 }
