@@ -3,6 +3,7 @@ package myproject.CharityGivingWebApp.model;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,33 +14,52 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import myproject.CharityGivingWebApp.views.Views;
 
 @Entity
 public class Donation {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Views.DonationView.class)
 	private Long id;
 
 	@NotNull(message = "Amount is a required field.")
 	@Column
+	@JsonView(Views.DonationView.class)
 	private BigDecimal amount;
 
 	@Column
+	@JsonView(Views.DonationView.class)
 	private String comment;
 
 	@Column
+	@JsonView(Views.DonationView.class)
 	private boolean isAnonymous;
 
 	@JsonIgnoreProperties({ "donations", "fundraisings" })
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "donor_id")
+	@JsonView(Views.DonationView.class)
 	private User donor;
 
 	@JsonIgnoreProperties({ "donations", "founder" })
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "fundraising_id")
+	@JsonView(Views.DonationView.class)
 	private Fundraising fundraising;
+
+	public Donation() {}
+
+	public Donation(@NotNull(message = "Amount is a required field.") BigDecimal amount, String comment,
+			boolean isAnonymous, User donor, Fundraising fundraising) {
+		super();
+		this.amount = amount;
+		this.comment = comment;
+		this.isAnonymous = isAnonymous;
+		this.donor = donor;
+		this.fundraising = fundraising;
+	}
 
 	public BigDecimal getAmount() {
 		return amount;

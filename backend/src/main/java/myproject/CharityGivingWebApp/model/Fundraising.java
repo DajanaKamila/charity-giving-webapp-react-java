@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,31 +15,48 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import myproject.CharityGivingWebApp.views.Views;
 
 @Entity
 public class Fundraising {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(Views.FundraisingView.class)
 	private Long id;
 
 	@Column
+	@JsonView(Views.FundraisingView.class)
 	private String name;
 
 	@Column(length = 5000)
+	@JsonView(Views.FundraisingView.class)
 	private String description;
 
 	@Column
+	@JsonView(Views.FundraisingView.class)
 	private BigDecimal goal;
 
 	@JsonIgnoreProperties({ "donations", "fundraisings" })
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "founder_id")
+	@JsonView(Views.FundraisingView.class)
 	private User founder;
 
 	@JsonIgnoreProperties({ "donor", "fundraisings", "fundraising" })
 	@OneToMany(mappedBy = "fundraising", cascade = CascadeType.ALL)
 	private List<Donation> donations;
+
+	public Fundraising() {}
+	
+	public Fundraising(String name, String description, BigDecimal goal, User founder, List<Donation> donations) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.goal = goal;
+		this.founder = founder;
+		this.donations = donations;
+	}
 
 	public void addDonation(Donation donation) {
 		donations.add(donation);

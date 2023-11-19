@@ -1,65 +1,84 @@
 package myproject.CharityGivingWebApp.model;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import myproject.CharityGivingWebApp.views.Views;
 
 @Entity
 @Table(name = "Charity_Users")
 public class User {
 
+	@JsonView(Views.UserBasicView.class)
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "Username is a required field.")
+	@JsonView(Views.UserBasicView.class)
+	@NotBlank(message = "Email is a required field.")
 	@Column(unique = true)
-	private String username;
+	private String email;
 
 	@NotBlank(message = "Password is a required field.")
 	@Column
 	private String password;
 
+	@JsonView(Views.UserBasicView.class)
 	@NotBlank(message = "First name is a required field.")
 	@Column
 	private String firstName;
 
+	@JsonView(Views.UserBasicView.class)
 	@NotBlank(message = "Last name is a required field.")
 	@Column
 	private String lastName;
 
-	@JsonIgnoreProperties({ "founder", "donations" })
-	@OneToMany(mappedBy = "founder", cascade = CascadeType.ALL)
-	private List<Fundraising> fundraisings;
+//	@JsonIgnoreProperties({ "founder", "donations" })
+//	@OneToMany(mappedBy = "founder", cascade = CascadeType.ALL)
+//	private List<Fundraising> fundraisings;
+//
+//	@JsonIgnoreProperties({ "donor", "fundraising", "fundraisings" })
+//	@OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
+//	private List<Donation> donations;
 
-	@JsonIgnoreProperties({ "donor", "fundraising", "fundraisings" })
-	@OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
-	private List<Donation> donations;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 
-	public void addFundraising(Fundraising fundraising) {
-		fundraisings.add(fundraising);
+	public User() {
 	}
 
-	public void addDonation(Donation donation) {
-		donations.add(donation);
+	public User(String email, String password, String firstName, String lastName, Set<Role> roles) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+
+		this.roles = roles;
 	}
 
-	public String getUsername() {
-		return username;
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -89,21 +108,20 @@ public class User {
 	public Long getId() {
 		return id;
 	}
-
-	public List<Fundraising> getFundraisings() {
-		return fundraisings;
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setFundraisings(List<Fundraising> fundraisings) {
-		this.fundraisings = fundraisings;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public List<Donation> getDonations() {
-		return donations;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
-
-	public void setDonations(List<Donation> donations) {
-		this.donations = donations;
-	}
+	
 
 }
+
+
